@@ -1,15 +1,29 @@
 import React from "react";
-
-export const Sort = () => {
-    const typeSorts = ['популярности', 'цене', 'алфавиту']
+import {SortType} from "../Pages/Home";
+type SortTypeProps={
+    sortType: SortType
+    callback:(value: SortType)=>void
+}
+export const Sort:React.FC<SortTypeProps> = ({sortType,callback}) => {
+    const list = [
+        {name:'популярности(desc)',sort:'rating'},
+        {name:'популярности(ask)',sort:'-rating'},
+        {name: 'цене(desc)',sort:'price'},
+        {name: 'цене(ask)',sort:'-price'},
+        {name: 'алфавиту(desc)',sort:'title'},
+        {name: 'алфавиту(ask)',sort:'-title'},
+        ]
     const [isVisible, setIsVisible] = React.useState(false)
-    const [selected, setSelected] = React.useState(0)
-    const onClickType = (value: number) => {
-        setSelected(value)
+
+    const onClickType = (value: SortType) => {
+        callback(value)
         setIsVisible(!isVisible)
     }
-    const typeSortsForRender = typeSorts.map((t, i) => <li className={selected===i?'active':''} onClick={()=> onClickType(i)} key={i}>{t}</li>)
-const selectedItem=typeSorts[selected]
+    const typeSortsForRender = list.map((t, i) =>
+        <li className={sortType.name === t.name ? 'active' : ''}
+            onClick={() => onClickType(t)} key={i}>{t.name}</li>)
+
+    const sortName = sortType.name
     return (
         <div className="sort">
             <div className="sort__label">
@@ -26,7 +40,7 @@ const selectedItem=typeSorts[selected]
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsVisible(!isVisible)}>{selectedItem}</span>
+                <span onClick={() => setIsVisible(!isVisible)}>{sortName}</span>
             </div>
             {isVisible && (<div className="sort__popup">
                 <ul>

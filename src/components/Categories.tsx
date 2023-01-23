@@ -1,13 +1,17 @@
 import React from "react";
+type CategoriesType={
+    category: number
+    callBack:(value:number)=>void
+}
+export const Categories: React.FC<CategoriesType>= ({category,callBack}) => {
 
-export const Categories = () => {
-    const [activeIndex, setActiveIndex] = React.useState(0)
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
     const onClickCategory = (value: number) => {
-        setActiveIndex(value)
+        callBack(value)
     }
     const categoriesForRender = categories.map((c,index)=>{
-        return <li key={index} onClick={()=>onClickCategory(index)} className={index===activeIndex? 'active': ''}>{c}</li>
+        return <li key={index} onClick={()=>onClickCategory(index)}
+                   className={index===category? 'active': ''}>{c}</li>
     })
     return (
         <div className="categories">

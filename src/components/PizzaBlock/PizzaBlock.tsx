@@ -37,7 +37,8 @@ export const PizzaBlock: React.FC<PizzaBlockType> = (props) => {
                                                    className={activeType === i ? 'active' : ''}
                                                    key={i}>{typeNames[i]}</li>)
     return (
-        <div className="pizza-block">
+        <div className={'pizza-block-wrapper'}>
+            <div className="pizza-block">
             <img
                 className="pizza-block__image"
                 src={imageUrl} alt="Pizza"
@@ -71,5 +72,7 @@ export const PizzaBlock: React.FC<PizzaBlockType> = (props) => {
                 </div>
             </div>
         </div>
+        </div>
+
     )
 }
