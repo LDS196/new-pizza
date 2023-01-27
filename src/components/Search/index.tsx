@@ -1,23 +1,15 @@
-import React, {ChangeEvent, FC, KeyboardEvent} from 'react';
+import React, {ChangeEvent,} from 'react';
 
 import styles from '../Search/Search.module.scss'
-type SearchType={
-    searchValue:string
-    setSearchValue:(value:string)=>void
-}
+import {SearchContext} from "../../App";
 
-export const Search = (props:SearchType) => {
-    const {searchValue, setSearchValue} = props
+
+export const Search = () => {
+const {searchValue, setSearchValue} = React.useContext(SearchContext)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.currentTarget.value)
     }
-
-    const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            setSearchValue(e.currentTarget.value)
-        }
-}
 
         return (
             <div className={styles.root}>
@@ -32,11 +24,12 @@ export const Search = (props:SearchType) => {
                             d="M18,10a8,8,0,1,0-3.1,6.31l6.4,6.4,1.41-1.41-6.4-6.4A8,8,0,0,0,18,10Zm-8,6a6,6,0,1,1,6-6A6,6,0,0,1,10,16Z"/>
                     </g>
                 </svg>
-                <input onKeyDown={onKeyDownHandler}  onChange={onChangeHandler} value={searchValue}
+                <input   onChange={onChangeHandler} value={searchValue}
                        className={styles.input} placeholder={'Поиск пиццы'}/>
             </div>
 
         );
     }
+
 
 
