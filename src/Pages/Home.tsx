@@ -7,6 +7,9 @@ import {Sort} from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Sceleton";
 import {Pagination} from "../components/Pagination/Pagination";
 import {SearchContext} from "../App";
+import { setCategory} from "../components/Redux/Slices/FilterSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../components/Redux/Store";
 
 
 type PizzaType = {
@@ -19,23 +22,25 @@ type PizzaType = {
     category: number
     rating: number
 }
-export type SortType = {
-    name: string
-    sort: string
-}
+// export type SortType = {
+//     name: string
+//     sortProp: string
+// }
 
 const Home = () => {
+    const dispatch = useDispatch()
+    const {category, sort} = useSelector((state:RootState)=> state.filter)
+
     const {searchValue} = React.useContext(SearchContext)
     const [items, setItems] = React.useState<Array<PizzaType>>([])
     const [isLoading, setIsLoading] = React.useState<boolean>(true)
-    const [category, setCategory] = React.useState(0)
-    const [sortType, setSortType] = React.useState<SortType>({name: 'популярности', sort: 'rating'})
     const [currentPage, setCurrentPage] = useState(1)
 
-    const sortBy = sortType.sort.replace('-', '');
-    const order = sortType.sort.includes('-') ? 'ask' : 'desc';
+    const sortBy = sort.sortProp.replace('-', '');
+    const order = sort.sortProp.includes('-') ? 'ask' : 'desc';
     const categoryId = category > 0 ? `category=${category}` : '';
     const search = searchValue ? `&search=${searchValue}` : ''
+
     React.useEffect(() => {
         setIsLoading(true)
         fetch(`https://63ccf03c0f1d5967f02739d9.mockapi.io/items?page=${currentPage}&limit=4&${categoryId}&sortBy=${sortBy}&order=${order}${search}`)
@@ -45,17 +50,19 @@ const Home = () => {
                 setIsLoading(false)
             })
         window.scroll(0, 0)
-    }, [category, sortType, searchValue, currentPage])
+    }, [category, sort, searchValue, currentPage])
 
-    const pizzasForRender = items.map((p) => {
-        return <PizzaBlock key={p.id} {...p}/>
-    })
+    const onChangeCategory=(value:number)=>{
+        dispatch(setCategory(value,))
+    }
+    const pizzasForRender = items.map((p) => {return <PizzaBlock key={p.id} {...p}/>})
     const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i}/>)
+
     return (
         <div className="container">
             <div className="content__top">
-                <Categories category={category} callBack={setCategory}/>
-                <Sort sortType={sortType} callback={setSortType}/>
+                <Categories category={category} callBack={onChangeCategory}/>
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">

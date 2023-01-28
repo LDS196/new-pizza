@@ -1,27 +1,30 @@
 import React from "react";
-import {SortType} from "../Pages/Home";
-type SortTypeProps={
-    sortType: SortType
-    callback:(value: SortType)=>void
-}
-export const Sort:React.FC<SortTypeProps> = ({sortType,callback}) => {
-    const list = [
-        {name:'популярности(desc)',sort:'rating'},
-        {name:'популярности(ask)',sort:'-rating'},
-        {name: 'цене(desc)',sort:'price'},
-        {name: 'цене(ask)',sort:'-price'},
-        {name: 'алфавиту(desc)',sort:'title'},
-        {name: 'алфавиту(ask)',sort:'-title'},
-        ]
-    const [isVisible, setIsVisible] = React.useState(false)
+import {setSort, SortType} from "./Redux/Slices/FilterSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "./Redux/Store";
 
+// type SortTypeProps={
+//     sortType: SortType
+//     callback:(value: SortType)=>void
+// }
+const list = [
+    {name:'популярности(desc)',sortProp:'rating'},
+    {name:'популярности(ask)',sortProp:'-rating'},
+    {name: 'цене(desc)',sortProp:'price'},
+    {name: 'цене(ask)',sortProp:'-price'},
+    {name: 'алфавиту(desc)',sortProp:'title'},
+    {name: 'алфавиту(ask)',sortProp:'-title'},
+]
+export const Sort = () => {
+    const dispatch=useDispatch()
+    const sortType = useSelector((state:RootState)=>state.filter.sort)
+    const [isVisible, setIsVisible] = React.useState(false)
     const onClickType = (value: SortType) => {
-        callback(value)
+        dispatch(setSort(value))
         setIsVisible(!isVisible)
     }
     const typeSortsForRender = list.map((t, i) =>
-        <li className={sortType.name === t.name ? 'active' : ''}
-            onClick={() => onClickType(t)} key={i}>{t.name}</li>)
+        <li className={sortType.name === t.name ? 'active' : ''} onClick={() => onClickType(t)} key={i}>{t.name}</li>)
 
     const sortName = sortType.name
     return (

@@ -6,14 +6,21 @@ import Home from "./Pages/Home";
 import NotFound from "./Pages/NotFound";
 import Cart from "./Pages/Cart";
 
+
  type SearchType={
     searchValue:string
     setSearchValue: React.Dispatch<React.SetStateAction<string>>
 }
 export const SearchContext= React.createContext({}as SearchType)
 
+
+
 function App() {
 const [searchValue,setSearchValue]=useState('')
+
+
+
+
     return (
         <div className="wrapper">
             <SearchContext.Provider value={{searchValue, setSearchValue}}>

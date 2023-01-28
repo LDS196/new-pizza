@@ -3,9 +3,9 @@ type CategoriesType={
     category: number
     callBack:(value:number)=>void
 }
-export const Categories: React.FC<CategoriesType>= ({category,callBack}) => {
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
-    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+export const Categories: React.FC<CategoriesType>= ({category,callBack}) => {
     const onClickCategory = (value: number) => {
         callBack(value)
     }
