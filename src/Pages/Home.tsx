@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 
 
 import {PizzaBlock} from "../components/PizzaBlock/PizzaBlock";
@@ -30,11 +30,12 @@ const Home = () => {
     const [isLoading, setIsLoading] = React.useState<boolean>(true)
     const [category, setCategory] = React.useState(0)
     const [sortType, setSortType] = React.useState<SortType>({name: 'популярности', sort: 'rating'})
-    const [currentPage, setCurrentPage]=useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
+
     const sortBy = sortType.sort.replace('-', '');
     const order = sortType.sort.includes('-') ? 'ask' : 'desc';
     const categoryId = category > 0 ? `category=${category}` : '';
-const search = searchValue? `&search=${searchValue}`:''
+    const search = searchValue ? `&search=${searchValue}` : ''
     React.useEffect(() => {
         setIsLoading(true)
         fetch(`https://63ccf03c0f1d5967f02739d9.mockapi.io/items?page=${currentPage}&limit=4&${categoryId}&sortBy=${sortBy}&order=${order}${search}`)
@@ -49,7 +50,7 @@ const search = searchValue? `&search=${searchValue}`:''
     const pizzasForRender = items.map((p) => {
         return <PizzaBlock key={p.id} {...p}/>
     })
-    const skeletons=[...new Array(6)].map((_, i) => <Skeleton key={i}/>)
+    const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i}/>)
     return (
         <div className="container">
             <div className="content__top">
