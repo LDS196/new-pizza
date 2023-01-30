@@ -7,7 +7,7 @@ import {RootState} from "./Redux/Store";
 //     sortType: SortType
 //     callback:(value: SortType)=>void
 // }
-const list = [
+export const list = [
     {name:'популярности(desc)',sortProp:'rating'},
     {name:'популярности(ask)',sortProp:'-rating'},
     {name: 'цене(desc)',sortProp:'price'},
@@ -22,6 +22,7 @@ export const Sort = () => {
     const onClickType = (value: SortType) => {
         dispatch(setSort(value))
         setIsVisible(!isVisible)
+
     }
     const typeSortsForRender = list.map((t, i) =>
         <li className={sortType.name === t.name ? 'active' : ''} onClick={() => onClickType(t)} key={i}>{t.name}</li>)
