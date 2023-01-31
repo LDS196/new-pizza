@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef} from "react";
 import {setSort, SortType} from "./Redux/Slices/FilterSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "./Redux/Store";
@@ -8,17 +8,19 @@ import {RootState} from "./Redux/Store";
 //     callback:(value: SortType)=>void
 // }
 export const list = [
-    {name:'популярности(desc)',sortProp:'rating'},
-    {name:'популярности(ask)',sortProp:'-rating'},
-    {name: 'цене(desc)',sortProp:'price'},
-    {name: 'цене(ask)',sortProp:'-price'},
-    {name: 'алфавиту(desc)',sortProp:'title'},
-    {name: 'алфавиту(ask)',sortProp:'-title'},
+    {name: 'популярности(desc)', sortProp: 'rating'},
+    {name: 'популярности(ask)', sortProp: '-rating'},
+    {name: 'цене(desc)', sortProp: 'price'},
+    {name: 'цене(ask)', sortProp: '-price'},
+    {name: 'алфавиту(desc)', sortProp: 'title'},
+    {name: 'алфавиту(ask)', sortProp: '-title'},
 ]
 export const Sort = () => {
-    const dispatch=useDispatch()
-    const sortType = useSelector((state:RootState)=>state.filter.sort)
+    const dispatch = useDispatch()
+    const sortType = useSelector((state: RootState) => state.filter.sort)
     const [isVisible, setIsVisible] = React.useState(false)
+    const sortRef = useRef(null)
+
     const onClickType = (value: SortType) => {
         dispatch(setSort(value))
         setIsVisible(!isVisible)
@@ -28,8 +30,23 @@ export const Sort = () => {
         <li className={sortType.name === t.name ? 'active' : ''} onClick={() => onClickType(t)} key={i}>{t.name}</li>)
 
     const sortName = sortType.name
+
+    useEffect(() => {
+        const handleClickOutside = (e: any) => {
+            if (sortRef.current) {
+                if (!e.composedPath().includes(sortRef.current)) {
+                    setIsVisible(isVisible)
+                }
+            }
+        }
+        document.body.addEventListener('click', handleClickOutside)
+        return () => {
+            document.body.removeEventListener('click', handleClickOutside)
+        }
+    }, [])
+
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"

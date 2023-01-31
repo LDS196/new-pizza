@@ -33,7 +33,6 @@ const filterSlice = createSlice({
             state.currentPage=action.payload
         },
         setFilters(state,action){
-            console.log(action.payload)
             state.currentPage=Number(action.payload.currentPage)
             state.category=Number(action.payload.category)
             state.sort=action.payload.sort
