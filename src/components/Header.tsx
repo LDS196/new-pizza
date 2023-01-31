@@ -10,6 +10,9 @@ import {RootState} from "./Redux/Store";
 // }
 export const Header: React.FC = () => {
     const {totalPrice,items}= useSelector((state:RootState) => state.cart)
+    const totalCount = items.reduce((sum,el)=>{
+        return sum + el.count
+    },0)
     return (
         <div className="header">
             <div className="container">
@@ -56,7 +59,7 @@ export const Header: React.FC = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <span>{items.length}</span>
+                        <span>{totalCount}</span>
                     </Link>
                 </div>
             </div>

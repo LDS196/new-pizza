@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useRef} from 'react';
 
 
 import {PizzaBlock} from "../components/PizzaBlock/PizzaBlock";
@@ -68,7 +68,7 @@ const Home = () => {
         isMount.current = true
     }, [category, sort.sortProp, searchValue, currentPage])
 //если был первый рендер то проверяем URL параметры и сохряем в редакс
-    useEffect(() => {
+    React.useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1))
             const sort = list.find(obj => obj.sortProp === params.sortProp)
