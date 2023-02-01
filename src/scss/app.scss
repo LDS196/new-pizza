@@ -26,6 +26,22 @@ body {
     padding: 20px 0;
   }
 
+  &__error-info {
+    margin: 100px auto;
+    width: 580px;
+    text-align: center;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 22px;
+    }
+  }
+
   &__title {
     font-size: 32px;
     font-weight: 700;
@@ -111,9 +127,11 @@ body {
     justify-content: space-between;
     align-items: center;
   }
-.content__items{
-  display: block;
-}
+
+  .content__items {
+    display: block;
+  }
+
   .content__title {
     display: flex;
     align-items: center;

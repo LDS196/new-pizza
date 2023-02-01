@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
-import {addItem, minusItem, PizzaType, removeItem} from "./Redux/Slices/CartSlice";
+import {addItem, minusItem, PizzaForCartType, removeItem} from "./Redux/Slices/CartSlice";
 import {useDispatch} from "react-redux";
 
 type CartItemType = {
-    item: PizzaType
+    item: PizzaForCartType
 }
 export const CartItem: FC<CartItemType> = (props) => {
     const {id, imageUrl, title, types, size, price, count,} = props.item

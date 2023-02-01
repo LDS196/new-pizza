@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-export type PizzaType = {
+export type PizzaForCartType = {
     id: number
     imageUrl: string
     title: string
@@ -11,9 +11,9 @@ export type PizzaType = {
 }
 
 
-export type InitialStateType = {
+ type InitialStateType = {
     totalPrice: number
-    items: Array<PizzaType>
+    items: Array<PizzaForCartType>
 }
 
 const initialState: InitialStateType = {
@@ -24,11 +24,6 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        // addItem(state, action) {
-        //     state.items.push(action.payload)
-        //     state.totalPrice = state.items.reduce((sum, obj) => {
-        //         return obj.price + sum
-        //     }, 0)
         addItem(state, action) {
             const findItem = state.items.find(obj => obj.id === action.payload.id)
             if (findItem) {
