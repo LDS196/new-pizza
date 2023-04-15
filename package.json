@@ -1,5 +1,6 @@
 {
   "name": "new-pizza",
+  "homepage": "https://lds196.github.io/new-pizza",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
