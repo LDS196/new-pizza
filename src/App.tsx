@@ -26,7 +26,6 @@ const [searchValue,setSearchValue]=useState('')
             <SearchContext.Provider value={{searchValue, setSearchValue}}>
                 <Header />
                 <div className="content">
-
                     <Routes>
                         <Route path={'/'} element={<Home />}/>
                         <Route path={'/cart'} element={<Cart/>}/>

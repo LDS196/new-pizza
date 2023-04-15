@@ -36,7 +36,7 @@ const Home = () => {
     const isSearch = useRef(false)
     const isMount = useRef(false)
 
-    const getPizzas =  async () => {
+    const getPizzas = async () => {
         const sortBy = sort.sortProp.replace('-', '');
         const order = sort.sortProp.includes('-') ? 'ask' : 'desc';
         const categoryId = category > 0 ? `category=${category}` : '';
@@ -109,7 +109,6 @@ const Home = () => {
 //         fetchPizzas()
 //
 //     }, [])
-
 
     const onChangeCategory = (value: number) => {
         dispatch(setCategory(value,))
